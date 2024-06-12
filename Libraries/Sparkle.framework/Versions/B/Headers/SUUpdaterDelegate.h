@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if defined(BUILDING_SPARKLE_SOURCES_EXTERNALLY)
+// Ignore incorrect warning
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wquoted-include-in-framework-header"
+#import "SUExport.h"
+#pragma clang diagnostic pop
+#else
 #import <Sparkle/SUExport.h>
+#endif
 
 @protocol SUVersionComparison, SUVersionDisplay;
 @class SUUpdater, SUAppcast, SUAppcastItem;
@@ -147,7 +156,7 @@ __deprecated_msg("Deprecated in Sparkle 2. See SPUUpdaterDelegate instead")
 - (void)updater:(SUUpdater *)updater willDownloadUpdate:(SUAppcastItem *)item withRequest:(NSMutableURLRequest *)request;
 
 /*!
- Called immediately after succesfull download of the specified update.
+ Called immediately after successful download of the specified update.
  
  \param updater The SUUpdater instance.
  \param item The appcast item corresponding to the update that has been downloaded.

@@ -7,9 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if defined(BUILDING_SPARKLE_SOURCES_EXTERNALLY)
+// Ignore incorrect warning
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wquoted-include-in-framework-header"
+#import "SUExport.h"
+#import "SPUUpdateCheck.h"
+#import "SPUUserUpdateState.h"
+#pragma clang diagnostic pop
+#else
 #import <Sparkle/SUExport.h>
 #import <Sparkle/SPUUpdateCheck.h>
 #import <Sparkle/SPUUserUpdateState.h>
+#endif
 
 @protocol SUVersionComparison;
 @class SPUUpdater, SUAppcast, SUAppcastItem, SPUUserUpdateState;
@@ -277,7 +288,7 @@ SU_EXPORT extern NSString *const SUSystemProfilerPreferredLanguageKey;
 - (void)updater:(SPUUpdater *)updater willDownloadUpdate:(SUAppcastItem *)item withRequest:(NSMutableURLRequest *)request;
 
 /**
- Called immediately after succesfull download of the specified update.
+ Called immediately after successful download of the specified update.
  
  @param updater The SUUpdater instance.
  @param item The appcast item corresponding to the update that has been downloaded.
